@@ -10,7 +10,7 @@
 
 ## Deployment Architecture
 
-![](.\pictures\ESP-HDI-Deployment.png)
+![](./pictures/ESP-HDI-Deployment.png)
 
 ## Azure Visual Network
 
@@ -33,17 +33,17 @@
 * Example: HTCB.NET
   > Buy Domian Name: <https://domains.google.com/>
 * Create and Verify Custom Domain
-  ![](.\pictures\CustomDomain001.png)
-  ![](.\pictures\CustomDomain002.png)
-  ![](.\pictures\CustomDomain003.png)
+  ![](./pictures/CustomDomain001.png)
+  ![](./pictures/CustomDomain002.png)
+  ![](./pictures/CustomDomain003.png)
 ### (Option) Create a Azure AD Admnistrators User
 * Example: Azure.Admin@htcb.net
 > For Sync AD User/Group to Azure AD
 
-  ![](.\pictures\AADUser001.png)
-  ![](.\pictures\AADUser002.png)
-  ![](.\pictures\AADUser003.png)
-  ![](.\pictures\AADUser004.png)
+  ![](./pictures/AADUser001.png)
+  ![](./pictures/AADUser002.png)
+  ![](./pictures/AADUser003.png)
+  ![](./pictures/AADUser004.png)
   * Use Azure.Admin@htcb.net login [Azure Portal](https://portal.azure.com) first time need to change password, let the account available in other place.
     * If Azure China Cloud, DO NOT ues custom domian's account to login in Azure AD Connect tool, will be use have Global Administator privilege Azure AD account, like: xxx@yyy.partner.onmschina.cn
   * Tips: Appendix: How to fully remove Azure AD Connect
@@ -66,45 +66,45 @@
 * Install domain serives
 * Install telnet client
 * Install .NET 3.5
-  ![](.\pictures\ADDS001.png)
-  ![](.\pictures\ADDS002.png)
-  ![](.\pictures\ADDS003.png)
-  ![](.\pictures\ADDS004.png)
-  ![](.\pictures\ADDS005.png)
-  ![](.\pictures\ADDS006.png)
+  ![](./pictures/ADDS001.png)
+  ![](./pictures/ADDS002.png)
+  ![](./pictures/ADDS003.png)
+  ![](./pictures/ADDS004.png)
+  ![](./pictures/ADDS005.png)
+  ![](./pictures/ADDS006.png)
 * Configure New DC
-  ![](.\pictures\ADDS007.png)
-  ![](.\pictures\ADDS008.png)
-  ![](.\pictures\ADDS009.png)
-  ![](.\pictures\ADDS010.png)
-  ![](.\pictures\ADDS011.png)
-  ![](.\pictures\ADDS012.png)
-  ![](.\pictures\ADDS013.png)
-  ![](.\pictures\ADDS014.png)
-  ![](.\pictures\ADDS015.png)
+  ![](./pictures/ADDS007.png)
+  ![](./pictures/ADDS008.png)
+  ![](./pictures/ADDS009.png)
+  ![](./pictures/ADDS010.png)
+  ![](./pictures/ADDS011.png)
+  ![](./pictures/ADDS012.png)
+  ![](./pictures/ADDS013.png)
+  ![](./pictures/ADDS014.png)
+  ![](./pictures/ADDS015.png)
 * Create OU/ Group and Users
-  ![](.\pictures\ADDS016.png)
-  ![](.\pictures\ADDS017.png)
-  ![](.\pictures\ADDS018.png)
-  ![](.\pictures\ADDS019.png)
-  ![](.\pictures\ADDS020.png)
-  ![](.\pictures\ADDS021.png)
-  ![](.\pictures\ADDS022.png)
-  ![](.\pictures\ADDS023.png)
-  ![](.\pictures\ADDS024.png)
-  ![](.\pictures\ADDS025.png)
+  ![](./pictures/ADDS016.png)
+  ![](./pictures/ADDS017.png)
+  ![](./pictures/ADDS018.png)
+  ![](./pictures/ADDS019.png)
+  ![](./pictures/ADDS020.png)
+  ![](./pictures/ADDS021.png)
+  ![](./pictures/ADDS022.png)
+  ![](./pictures/ADDS023.png)
+  ![](./pictures/ADDS024.png)
+  ![](./pictures/ADDS025.png)
 ### Azure AD Connect Deployment
   [Download Azure AD Connect and Install](https://www.microsoft.com/en-us/download/details.aspx?id=47594)
-  ![](.\pictures\AADConnect001.png)
+  ![](./pictures/AADConnect001.png)
 ### Azure AD Connect Configure
-  ![](.\pictures\AADConnect002.png)
-  ![](.\pictures\AADConnect003.png)
-  ![](.\pictures\AADConnect004.png)
-  ![](.\pictures\AADConnect005.png)
-  ![](.\pictures\AADConnect006.png)
-  ![](.\pictures\AADConnect007.png)
-  ![](.\pictures\AADConnect008.png)
-  ![](.\pictures\AADConnect009.png)
+  ![](./pictures/AADConnect002.png)
+  ![](./pictures/AADConnect003.png)
+  ![](./pictures/AADConnect004.png)
+  ![](./pictures/AADConnect005.png)
+  ![](./pictures/AADConnect006.png)
+  ![](./pictures/AADConnect007.png)
+  ![](./pictures/AADConnect008.png)
+  ![](./pictures/AADConnect009.png)
 
 ## Azure Actively Directory Domain Services
 > - The domain name that you use with Azure AD DS must be 39 characters or fewer, to work with HDInsight.
@@ -112,27 +112,27 @@
 > - [Configure HDInsight clusters for Azure Active Directory integration with Enterprise Security Package](https://docs.microsoft.com/en-us/azure/hdinsight/domain-joined/apache-domain-joined-configure-using-azure-adds)
 
 ### Azure Actively Directory Domain Services Deployment
-  ![](.\pictures\AADDS001.png)
-  ![](.\pictures\AADDS002.png)
-  ![](.\pictures\AADDS003.png)
-  ![](.\pictures\AADDS004.png)
-  ![](.\pictures\AADDS005.png)
-  ![](.\pictures\AADDS006.png)
-  ![](.\pictures\AADDS007.png)
-  ![](.\pictures\AADDS008.png)
-  ![](.\pictures\AADDS009.png)
-  ![](.\pictures\AADDS010.png)
+  ![](./pictures/AADDS001.png)
+  ![](./pictures/AADDS002.png)
+  ![](./pictures/AADDS003.png)
+  ![](./pictures/AADDS004.png)
+  ![](./pictures/AADDS005.png)
+  ![](./pictures/AADDS006.png)
+  ![](./pictures/AADDS007.png)
+  ![](./pictures/AADDS008.png)
+  ![](./pictures/AADDS009.png)
+  ![](./pictures/AADDS010.png)
 
 ### Azure Actively Directory Domain Services Configure  
 * DNS Configure
-  ![](.\pictures\AADDS011.png)
-  ![](.\pictures\AADDS012.png)
-  ![](.\pictures\AADDS013.png)
-  ![](.\pictures\AADDS014.png)
-  ![](.\pictures\AADDS015.png)
-  ![](.\pictures\AADDS048.png)
+  ![](./pictures/AADDS011.png)
+  ![](./pictures/AADDS012.png)
+  ![](./pictures/AADDS013.png)
+  ![](./pictures/AADDS014.png)
+  ![](./pictures/AADDS015.png)
+  ![](./pictures/AADDS048.png)
 * AADDS Secure LDAP Configure
-  ![](.\pictures\AADDS016.png) 
+  ![](./pictures/AADDS016.png) 
   ```powershell
   # Create an new Certificate
   $lifetime = Get-Date
@@ -140,19 +140,19 @@
   -NotAfter $lifetime.AddDays(365) -KeyUsage DigitalSignature, KeyEncipherment `
   -Type SSLServerAuthentication -DnsName *.htcb.net, htcb.net
   ```
-  ![](.\pictures\AADDS017.png) 
-  ![](.\pictures\AADDS018.png) 
-  ![](.\pictures\AADDS019.png) 
-  ![](.\pictures\AADDS020.png) 
-  ![](.\pictures\AADDS021.png) 
-  ![](.\pictures\AADDS022.png) 
-  ![](.\pictures\AADDS023.png) 
-  ![](.\pictures\AADDS024.png) 
-  ![](.\pictures\AADDS025.png) 
-  ![](.\pictures\AADDS026.png) 
-  ![](.\pictures\AADDS027.png) 
+  ![](./pictures/AADDS017.png) 
+  ![](./pictures/AADDS018.png) 
+  ![](./pictures/AADDS019.png) 
+  ![](./pictures/AADDS020.png) 
+  ![](./pictures/AADDS021.png) 
+  ![](./pictures/AADDS022.png) 
+  ![](./pictures/AADDS023.png) 
+  ![](./pictures/AADDS024.png) 
+  ![](./pictures/AADDS025.png) 
+  ![](./pictures/AADDS026.png) 
+  ![](./pictures/AADDS027.png) 
 * NSG Inbound Configure (Example: Global Azure - West US)
-  ![](.\pictures\AADDS028.png) 
+  ![](./pictures/AADDS028.png) 
   | ID  | Name                  | Port                        | Protocol | Source           | Destination | Type        |
   | --- | --------------------- | --------------------------- | -------- | ---------------- | ----------- | ----------- |
   | 1   | Port_LDAP_636         | 636                         | Any      | 192.168.224.0/20 | Any         | LDAP        |
@@ -167,7 +167,7 @@
   | 10  | Port_40.73.38.172     | 443                         | Any      | 40.73.38.172     | Any         | MCNorth-HDI |
   | 11  | Port_Kerberos         | 389,636,3268,3269,88,53,135 | Any      | 192.168.224.0/20 | Any         | Kerberos    |
 
-  ![](.\pictures\AADDS029.png) 
+  ![](./pictures/AADDS029.png) 
 * Refer:<br/>
   [Tutorial: Configure secure LDAP for an Azure Active Directory Domain Services managed domain](https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-configure-ldaps)<br/>
   [NSG service tags for Azure HDInsight](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-service-tags)<br/>
@@ -194,26 +194,26 @@
   Set-ADSyncAADPasswordSyncConfiguration -SourceConnector $adConnector -TargetConnector $azureadConnector -Enable $false
   Set-ADSyncAADPasswordSyncConfiguration -SourceConnector $adConnector -TargetConnector $azureadConnector -Enable $true
   ```
-  ![](.\pictures\AADDS030.png) 
-  ![](.\pictures\AADDS031.png) 
-  ![](.\pictures\AADDS032.png) 
+  ![](./pictures/AADDS030.png) 
+  ![](./pictures/AADDS031.png) 
+  ![](./pictures/AADDS032.png) 
 * Peering Between HDI's VNET and AADDS's VNET
-  ![](.\pictures\AADDS044.png)
-  ![](.\pictures\AADDS045.png)
-  ![](.\pictures\AADDS046.png)
-  ![](.\pictures\AADDS047.png)
+  ![](./pictures/AADDS044.png)
+  ![](./pictures/AADDS045.png)
+  ![](./pictures/AADDS046.png)
+  ![](./pictures/AADDS047.png)
 * Join outside Windows Server to Manage AADDS
-  ![](.\pictures\AADDS033.png) 
-  ![](.\pictures\AADDS034.png) 
-  ![](.\pictures\AADDS040.png) 
-  ![](.\pictures\AADDS035.png) 
-  ![](.\pictures\AADDS041.png) 
-  ![](.\pictures\AADDS036.png) 
-  ![](.\pictures\AADDS037.png) 
-  ![](.\pictures\AADDS038.png) 
-  ![](.\pictures\AADDS039.png) 
-  ![](.\pictures\AADDS042.png) 
-  ![](.\pictures\AADDS043.png)
+  ![](./pictures/AADDS033.png) 
+  ![](./pictures/AADDS034.png) 
+  ![](./pictures/AADDS040.png) 
+  ![](./pictures/AADDS035.png) 
+  ![](./pictures/AADDS041.png) 
+  ![](./pictures/AADDS036.png) 
+  ![](./pictures/AADDS037.png) 
+  ![](./pictures/AADDS038.png) 
+  ![](./pictures/AADDS039.png) 
+  ![](./pictures/AADDS042.png) 
+  ![](./pictures/AADDS043.png)
 * Join outside CentOS client to AADDS
   ```bash
   sudo yum upgrade
@@ -256,21 +256,21 @@
 | 1   | adls4hdi001        | StorageV2 (general purpose v2) | Except HBase |
 | 2   | premiumblob4hdi001 | BlockBlobStorage               | For HBase    |
 
-![](.\pictures\Storage001.png)
-![](.\pictures\Storage002.png)
-![](.\pictures\Storage003.png)
+![](./pictures/Storage001.png)
+![](./pictures/Storage002.png)
+![](./pictures/Storage003.png)
 
 ## Azure Managed Identity
 ### Azure Managed Identity Department
-![](.\pictures\UAMI001.png)
+![](./pictures/UAMI001.png)
 ### Assign HDInsight Contributor Role to Managed Identity at AADDS
-![](.\pictures\UAMI002.png)
-![](.\pictures\UAMI003.png)
-![](.\pictures\UAMI004.png)
+![](./pictures/UAMI002.png)
+![](./pictures/UAMI003.png)
+![](./pictures/UAMI004.png)
 ### Assign Storage Owner Role to Managed Identity at Storage Account
-![](.\pictures\UAMI005.png)
-![](.\pictures\UAMI006.png)
-![](.\pictures\UAMI007.png)
+![](./pictures/UAMI005.png)
+![](./pictures/UAMI006.png)
+![](./pictures/UAMI007.png)
 
 ## Azure Database for SQL Database
 | ID  | Azure SQL Servers | Elastic Pool   | Database Name  | Remark    |
@@ -283,18 +283,18 @@
 | 6   | sqldb4daas4hdi    | SQLElasticPool | OozieDB        | Shareable |
 | 7   | sqldb4daas4hdi    | SQLElasticPool | RangerDB       | Shareable |
 
-![](.\pictures\DB001.png)
-![](.\pictures\DB002.png)
-![](.\pictures\DB003.png)
-![](.\pictures\DB004.png)
-![](.\pictures\DB005.png)
-![](.\pictures\DB006.png)
-![](.\pictures\DB007.png)
-![](.\pictures\DB008.png)
-![](.\pictures\DB009.png)
-![](.\pictures\DB010.png)
-![](.\pictures\DB011.png)
-![](.\pictures\DB012.png)
+![](./pictures/DB001.png)
+![](./pictures/DB002.png)
+![](./pictures/DB003.png)
+![](./pictures/DB004.png)
+![](./pictures/DB005.png)
+![](./pictures/DB006.png)
+![](./pictures/DB007.png)
+![](./pictures/DB008.png)
+![](./pictures/DB009.png)
+![](./pictures/DB010.png)
+![](./pictures/DB011.png)
+![](./pictures/DB012.png)
 
 ## ESP with HDInsight Clusters
 | ID  | HDInsight Name     | Template          | Remark |
@@ -308,13 +308,13 @@
 > * In the template package created by HDInsight, some components may contain each other, but the official guidelines should be strictly followed. Only the components recommended by the template package should be mainly used, and other subordinate components are only used for auxiliary roles.<br/>
 > * In the actual development and task submission process, based on security and misoperation protection considerations, it is usually not allowed to log in to the Head Nodes directly through the SSH client. Most users will consider deploying additional virtual machines for remote client configuration for remote task submission and script execution. In this regard, it is strongly recommended to use Edge Nodes, and it is not recommended to configure external virtual machines and component clients for link access.
 ### HDInsight Deployment
-![](.\pictures\HDI001.png)
-![](.\pictures\HDI002.png)
-![](.\pictures\HDI003.png)
-![](.\pictures\HDI004.png)
-![](.\pictures\HDI005.png)
-![](.\pictures\HDI006.png)
-![](.\pictures\HDI007.png)    
+![](./pictures/HDI001.png)
+![](./pictures/HDI002.png)
+![](./pictures/HDI003.png)
+![](./pictures/HDI004.png)
+![](./pictures/HDI005.png)
+![](./pictures/HDI006.png)
+![](./pictures/HDI007.png)    
 ### HDInsight Configure
 * Disable ACID with Hive Table - Amberi Portal - Hive Conf
   | ID  | Paramter                      | Vaule                                             |
@@ -427,12 +427,12 @@
   ```
 ### HDInsight Manage
 * Ambari Portal
-  ![](.\pictures\HDI008.png)
-  ![](.\pictures\HDI009.png)
+  ![](./pictures/HDI008.png)
+  ![](./pictures/HDI009.png)
 * Ranger Portal
-  ![](.\pictures\HDI010.png)
-  ![](.\pictures\HDI011.png)
-  ![](.\pictures\HDI012.png)
+  ![](./pictures/HDI010.png)
+  ![](./pictures/HDI011.png)
+  ![](./pictures/HDI012.png)
   
 ## Important Tips:
 ### Deploy ESP w/ HDInsight Cluster
