@@ -108,8 +108,8 @@
 
 ## Azure Actively Directory Domain Services
 > - The domain name that you use with Azure AD DS must be 39 characters or fewer, to work with HDInsight.
-  - Example: **HTTP/hn0-e0f157.htcb.net@HTCB.NET** (Deployment in the background, automatically creating accounts)
-  - [Configure HDInsight clusters for Azure Active Directory integration with Enterprise Security Package](https://docs.microsoft.com/en-us/azure/hdinsight/domain-joined/apache-domain-joined-configure-using-azure-adds)
+> - Example: **HTTP/hn0-e0f157.htcb.net@HTCB.NET** (Deployment in the background, automatically creating accounts)
+> - [Configure HDInsight clusters for Azure Active Directory integration with Enterprise Security Package](https://docs.microsoft.com/en-us/azure/hdinsight/domain-joined/apache-domain-joined-configure-using-azure-adds)
 
 ### Azure Actively Directory Domain Services Deployment
   ![](.\pictures\AADDS001.png)
@@ -437,4 +437,4 @@
 ## Important Tips:
 ### Deploy ESP w/ HDInsight Cluster
   * [Azure HDInsight supported node configurations | Microsoft Docs](https://docs.microsoft.com/en-us/azure/hdinsight/hdinsight-supported-node-configuration)
-    ![](./pictures/clusternodesize.png)
+    ![](./pictures/ClusterNodeSize.png)
