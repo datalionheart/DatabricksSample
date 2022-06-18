@@ -3,10 +3,33 @@
 <font size=8 color=red><B>Internal Edition - NO SHARING! </B></font>
 
 # The Outline
-
-[TOC]
-
-
+- [ESP-Based HDInsight Deployment](#esp-based-hdinsight-deployment)
+- [The Outline](#the-outline)
+  - [Deployment Architecture](#deployment-architecture)
+  - [Azure Visual Network](#azure-visual-network)
+  - [Azure Actively Directory](#azure-actively-directory)
+    - [Create a Custom Domain](#create-a-custom-domain)
+    - [(Option) Create a Azure AD Admnistrators User](#option-create-a-azure-ad-admnistrators-user)
+  - [(Option) AD User/Group sync to AAD](#option-ad-usergroup-sync-to-aad)
+    - [AD/DS Deployment](#adds-deployment)
+    - [AD/DS Configure](#adds-configure)
+    - [Azure AD Connect Deployment](#azure-ad-connect-deployment)
+    - [Azure AD Connect Configure](#azure-ad-connect-configure)
+  - [Azure Actively Directory Domain Services](#azure-actively-directory-domain-services)
+    - [Azure Actively Directory Domain Services Deployment](#azure-actively-directory-domain-services-deployment)
+    - [Azure Actively Directory Domain Services Configure](#azure-actively-directory-domain-services-configure)
+  - [Azure Storage](#azure-storage)
+  - [Azure Managed Identity](#azure-managed-identity)
+    - [Azure Managed Identity Department](#azure-managed-identity-department)
+    - [Assign HDInsight Contributor Role to Managed Identity at AADDS](#assign-hdinsight-contributor-role-to-managed-identity-at-aadds)
+    - [Assign Storage Owner Role to Managed Identity at Storage Account](#assign-storage-owner-role-to-managed-identity-at-storage-account)
+  - [Azure Database for SQL Database](#azure-database-for-sql-database)
+  - [ESP with HDInsight Clusters](#esp-with-hdinsight-clusters)
+    - [HDInsight Deployment](#hdinsight-deployment)
+    - [HDInsight Configure](#hdinsight-configure)
+    - [HDInsight Manage](#hdinsight-manage)
+  - [Important Tips:](#important-tips)
+    - [Deploy ESP w/ HDInsight Cluster](#deploy-esp-w-hdinsight-cluster)
 
 ## Deployment Architecture
 
