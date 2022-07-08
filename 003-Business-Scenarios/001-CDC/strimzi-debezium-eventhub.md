@@ -281,6 +281,12 @@ kubectl apply -f classicmodels-connector.yaml -n ns4debezium
 
 ![](./strimzi-debezium-eventhub-picture/status001.png)
 
+![](./strimzi-debezium-eventhub-picture/status002.png)
+
+![](./strimzi-debezium-eventhub-picture/status003.png)
+
+![](./strimzi-debezium-eventhub-picture/status004.png)
+
 
 # Reference documents
 
