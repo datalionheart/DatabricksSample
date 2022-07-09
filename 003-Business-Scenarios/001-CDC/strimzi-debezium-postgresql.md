@@ -12,7 +12,7 @@
 
 ## Azure database for postgresql
 
-![](/strimzi-debezium-pgsql-pictures/pgsql001.png)
+![](./strimzi-debezium-pgsql-pictures/pgsql001.png)
 
 ## Set server parameters and restart server
 
