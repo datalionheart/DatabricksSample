@@ -1,6 +1,6 @@
 # Azure-Based PostgreSQL CDC Open Source Solution
 
-`debezium CDC connector for MySQL`  `strimzi kafka connect cluster` `azure hdinsight wo/ ESP`
+`debezium CDC connector for PostgreSQL`  `strimzi kafka connect cluster` `azure hdinsight wo/ ESP`
 
 `azure kubernetes services` `azure database for postgresql` `postgresql plugins: pgoutput`
 
