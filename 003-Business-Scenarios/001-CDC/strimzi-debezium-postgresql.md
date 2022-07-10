@@ -1,6 +1,6 @@
 # Azure-Based PostgreSQL CDC Open Source Solution
 
-`debezium CDC connector for MySQL` 
+`debezium CDC connector for postgresql` 
 
 `strimzi kafka cluster` `strizmi kafka zookeeper cluster` `strimzi kafka connect cluster`
 
@@ -12,7 +12,7 @@
 
 ## Azure database for postgresql
 
-![](./strimzi-debezium-pgsql-pictures/pgsql001.png)
+![](/strumzi-debezium-pgsql-pictures/pgsql001.png)
 
 ## Set server parameters and restart server
 
