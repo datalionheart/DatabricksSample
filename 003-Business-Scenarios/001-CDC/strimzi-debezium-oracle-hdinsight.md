@@ -2,7 +2,7 @@
 
 `debezium CDC connector for Oracle`  `strimzi kafka connect cluster` `azure hdinsight wo/ ESP`
 
-`azure kubernetes services` 
+`azure kubernetes services` `oracle 19c CDB/PDB` `oracle logminer`
 
 # Objective
 
