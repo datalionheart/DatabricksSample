@@ -1,20 +1,34 @@
 # Azure-Based PostgreSQL CDC Open Source Solution
 
-`debezium CDC connector for postgresql`  `strimzi kafka connect cluster` `azure eventhub`
+`debezium CDC connector for MySQL`  `strimzi kafka connect cluster` `azure hdinsight wo/ ESP`
 
 `azure kubernetes services` `azure database for postgresql` `postgresql plugins: pgoutput`
 
 # Objective
 
-Debezium PostgreSQL Connector on Strimzi Kafka Connect Cluster Integration w/ Azure Event Hub
-
-> Suggest: CDC Production Environment require Azure Event Hub at least the Premium pricing tier
+Debezium PostgreSQL Connector on Strimzi Kafka Connect Cluster Integration w/ Azure HDInsight wo/ ESP
 
 [TOC]
 
 # Architecture
 
 ![](./strimzi-debezium-hdinsight-picture/Debezium.png)
+
+# Prepare HDInsight Kafka Cluster
+
+![](./strimzi-debezium-hdinsight-picture/hdi001.png)
+
+![](./strimzi-debezium-hdinsight-picture/hdi002.png)
+
+> Parameter setting & Restart components:
+>
+> | Parameter Name             | Default Value | Set Value |
+> | -------------------------- | ------------- | --------- |
+> | auto.create.topics.enable  | false         | true      |
+> | default.replication.factor | 4             | 3         |
+> | num.replica.fetchers       | 4             | 3         |
+
+![](./strimzi-debezium-hdinsight-picture/hdi003.png)
 
 # Prepare azure database for postgresql
 
@@ -127,7 +141,7 @@ cat <<EOF > Dockerfile
 FROM quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
 USER root:root
 RUN mkdir -p /opt/kafka/plugins/debezium
-COPY ./debezium-connector-postgres/ /opt/kafka/plugins/debezium/
+COPY ./debezium-connector-mysql/ /opt/kafka/plugins/debezium/
 USER 1001
 EOF
 
@@ -135,8 +149,8 @@ docker login acr4dataimages.azurecr.io
 acr4dataimages
 0D=7Xf3g8HCBLEcmY=Bqh7euSP5hcaHs
 
-docker build . -t acr4dataimages.azurecr.io/connect-debezium-postgres
-docker push acr4dataimages.azurecr.io/connect-debezium-postgres
+docker build . -t acr4dataimages.azurecr.io/connect-debezium
+docker push acr4dataimages.azurecr.io/connect-debezium
 ```
 
 ### Configure PostgreSQL credentials to kubernetes
@@ -163,20 +177,6 @@ kubectl apply -f postgres-credentials.yaml -n ns4debezium
 ```
 
 ```bash
-cat << EOF > eventhub-postgres-credentials.yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: eventhub-postgres-secret
-type: Opaque
-stringData:
-  eventhubspassword: Endpoint=sb://ehdebezcdc.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=3BdY8wvKw90qoubLkJKttCe/MNUt8AWgY6OkgDWm1w0=
-EOF
-
-kubectl apply -f eventhub-postgres-credentials.yaml -n ns4debezium
-```
-
-```bash
 cat << EOF > debezium-postgres-role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -186,7 +186,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  resourceNames: ["debezium-secret-postgres", "eventhub-postgres-secret"]
+  resourceNames: ["debezium-secret-postgres"]
   verbs: ["get"]
 EOF
 
@@ -226,10 +226,11 @@ spec:
   version: 3.1.0
   image: acr4dataimages.azurecr.io/connect-debezium-postgres:latest
   replicas: 1
-  bootstrapServers: ehdebezcdc.servicebus.windows.net:9093
+  bootstrapServers: "192.168.2.75:9092,192.168.2.73:9092,192.168.2.74:9092"
   config:
     config.providers: secrets
     config.providers.secrets.class: io.strimzi.kafka.KubernetesSecretConfigProvider
+    group.id: connect-cluster-group
     offset.storage.topic: connect-cluster-offsets
     config.storage.topic: connect-cluster-configs
     status.storage.topic: connect-cluster-status
@@ -244,19 +245,11 @@ spec:
     internal.value.converter.schemas.enable: false
     internal.key.converter: org.apache.kafka.connect.json.JsonConverter
     internal.value.converter: org.apache.kafka.connect.json.JsonConverter
-    config.storage.replication.factor: 1
-    offset.storage.replication.factor: 1
-    status.storage.replication.factor: 1
+    config.storage.replication.factor: 3
+    offset.storage.replication.factor: 3
+    status.storage.replication.factor: 3
     producer.connections.max.idle.ms: 180000
     producer.metadata.max.age.ms: 180000
-  authentication:
-    type: plain
-    username: $ConnectionString
-    passwordSecret:
-      secretName: eventhub-postgres-secret
-      password: eventhubspassword
-  tls:
-    trustedCertificates: []
 EOF
 
 kubectl apply -f debezium-postgres-connect.yaml -n ns4debezium
@@ -264,7 +257,7 @@ kubectl apply -f debezium-postgres-connect.yaml -n ns4debezium
 
 ### Deploy debezium postgresql kafka connector configure
 ```bash
-cat << EOF > dvdrental-postgres-eventhub-connector.yaml
+cat << EOF > dvdrental-connector.yaml
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
@@ -279,58 +272,74 @@ spec:
     connector.class: io.debezium.connector.postgresql.PostgresConnector
     database.hostname: fspgsql4dbz.postgres.database.azure.com
     database.port: 5432
-    database.allowPublicKeyRetrieval: true
     database.user: ${secrets:ns4debezium/debezium-secret-postgres:pgsqluid}
     database.password: ${secrets:ns4debezium/debezium-secret-postgres:pgsqlpwd}
-    database.server.id: 184085
+    database.server.id: 184080
     database.server.name: fspgsql4dbz
     database.dbname: dvdrental
-    auto.create.topics.enable: true
-    database.history: io.debezium.relational.history.MemoryDatabaseHistory
-    database.history.kafka.topic: dbhistory.dvdrental
+    database.history.kafka.bootstrap.servers: "192.168.2.75:9092,192.168.2.73:9092,192.168.2.74:9092"
+    database.history.kafka.topic: schema-changes.dvdrental
     include.schema.changes: true
     plugin.name: "pgoutput"
     publication.name: "pgpub"
     publication.autocreate.mode: "filtered"
     slot.name: "pgoutput_slot"
-    database.history.kafka.bootstrap.servers: ehdebezcdc.servicebus.windows.net:9093
-    database.history.security.protocol: SASL_SSL
-    database.history.sasl.mechanism: PLAIN
-    database.history.sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://ehdebezcdc.servicebus.windows.net/;SharedAccessKeyName=Consumer;SharedAccessKey=DCof4hGWLIq6vFRccfsvjTyDvwMDjEDgSvYvRTs2Vl0=\";"
-    database.history.consumer.bootstrap.servers: ehdebezcdc.servicebus.windows.net:9093
-    database.history.consumer.security.protocol: SASL_SSL
-    database.history.consumer.sasl.mechanism: PLAIN
-    database.history.consumer.sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://ehdebezcdc.servicebus.windows.net/;SharedAccessKeyName=Consumer;SharedAccessKey=DCof4hGWLIq6vFRccfsvjTyDvwMDjEDgSvYvRTs2Vl0=\";"
-    database.history.producer.bootstrap.servers: ehdebezcdc.servicebus.windows.net:9093
-    database.history.producer.security.protocol: SASL_SSL
-    database.history.producer.sasl.mechanism: PLAIN
-    database.history.producer.sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"Endpoint=sb://ehdebezcdc.servicebus.windows.net/;SharedAccessKeyName=Consumer;SharedAccessKey=DCof4hGWLIq6vFRccfsvjTyDvwMDjEDgSvYvRTs2Vl0=\";"
 EOF
 
-kubectl apply -f dvdrental-postgres-eventhub-connector.yaml -n ns4debezium
+kubectl apply -f dvdrental-connector.yaml -n ns4debezium
 ```
 
 ### Check CDC Topic Status
 
-![](./strimzi-debezium-eventhub-picture/status001-pgsql.png)
+#### Check Topic List
 
-![](./strimzi-debezium-eventhub-picture/status002-pgsql.png)
+```bash
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --list --zookeeper 192.168.2.71:2181,192.168.2.69:2181,192.168.2.70:2181
 
-![](./strimzi-debezium-eventhub-picture/status003-pgsql.png)
+--- Result ---
+__consumer_offsets
+connect-cluster-configs
+connect-cluster-offsets
+connect-cluster-status
+fspgsql4dbz.public.actor
+fspgsql4dbz.public.address
+fspgsql4dbz.public.category
+fspgsql4dbz.public.city
+fspgsql4dbz.public.country
+fspgsql4dbz.public.customer
+fspgsql4dbz.public.film
+fspgsql4dbz.public.film_actor
+fspgsql4dbz.public.film_category
+fspgsql4dbz.public.inventory
+fspgsql4dbz.public.language
+fspgsql4dbz.public.payment
+fspgsql4dbz.public.rental
+fspgsql4dbz.public.staff
+fspgsql4dbz.public.store
+```
 
-![](./strimzi-debezium-eventhub-picture/status004-pgsql.png)
+#### Check Topic Status
+
+```bash
+/usr/hdp/current/kafka-broker/bin/kafka-topics.sh --zookeeper 192.168.2.71:2181,192.168.2.69:2181,192.168.2.70:2181 --describe --topic fspgsql4dbz.public.customer
+
+--- Result ---
+Topic:fspgsql4dbz.public.customer       PartitionCount:1        ReplicationFactor:3     Configs:
+        Topic: fspgsql4dbz.public.customer      Partition: 0    Leader: 1001    Replicas: 1001,1003,1002        Isr: 1001,1003,1002
+```
+
+#### Check Topic Content
+
+```bash
+/usr/hdp/current/kafka-broker/bin/kafka-console-consumer.sh --bootstrap-server 192.168.2.75:9092,192.168.2.73:9092,192.168.2.74:9092 --topic fspgsql4dbz.public.customer --from-beginning
+
+--- Result ---
+... show the latest message ...
+{"before":null,"after":{"customer_id":524,"store_id":1,"first_name":"Jacky003","last_name":"Ely","email":"jared.ely@sakilacustomer.org","address_id":530,"activebool":true,"create_date":13193,"last_update":1657377371300596,"active":1},"source":{"version":"1.9.1.Final","connector":"postgresql","name":"fspgsql4dbz","ts_ms":1657377371300,"snapshot":"false","db":"dvdrental","sequence":"[null,\"889218744\"]","schema":"public","table":"customer","txId":6133,"lsn":889218744,"xmin":null},"op":"u","ts_ms":1657427216008,"transaction":null}
+^CProcessed a total of 600 messages
+```
 
 
 # Reference documents
 
-> - [Azure Event Hubs quotas and limits]([Quotas and limits - Azure Event Hubs - Azure Event Hubs | Microsoft Docs](https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-quotas))
-
-| Limit                                 | Basic                           | Standard                       | Premium                              | Dedicated                          |
-| ------------------------------------- | ------------------------------- | ------------------------------ | ------------------------------------ | ---------------------------------- |
-| Number of namespaces per subscription | 1000                            | 1000                           | 1000                                 | 1000 (50 per CU)                   |
-| Number of event hubs per namespace    | 10                              | 10                             | 100 per PU                           | 1000                               |
-| Capacity                              | $0.015/hour per Throughput Unit | $0.03/hour per Throughput Unit | $1.336/hour per Processing Unit (PU) | $8.001/hour per Capacity Unit (CU) |
-| Ingress events                        | $0.028 per million events       | $0.028 per million events      | Included                             | Included                           |
-| Apache Kafka                          |                                 | √                              | √                                    | √                                  |
-| Schema Registry                       |                                 | √                              | √                                    | √                                  |
-| Max Retention Period                  | 1 day                           | 7 days                         | 90 days                              | 90 days                            |
+> [Quickstart: Set up Apache Kafka on HDInsight using Azure portal | Microsoft Docs](https://docs.microsoft.com/en-us/azure/hdinsight/kafka/apache-kafka-get-started)
