@@ -20,7 +20,7 @@ Debezium PostgreSQL Connector on Strimzi Kafka Connect Cluster Integration w/ Az
 
 ## Azure database for postgresql
 
-![](/strumzi-debezium-pgsql-pictures/pgsql001.png)
+![](./strimzi-debezium-pgsql-pictures/pgsql001.png)
 
 ## Set server parameters and restart server
 
