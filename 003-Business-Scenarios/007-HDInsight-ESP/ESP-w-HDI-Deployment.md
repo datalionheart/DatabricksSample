@@ -1,7 +1,5 @@
 # ESP-Based HDInsight Deployment
 
-<font size=8 color=red><B>Internal Edition - NO SHARING! </B></font>
-
 # The Outline
 - [ESP-Based HDInsight Deployment](#esp-based-hdinsight-deployment)
 - [The Outline](#the-outline)
